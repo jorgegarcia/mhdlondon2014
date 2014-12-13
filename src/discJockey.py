@@ -1,0 +1,25 @@
+import os;
+import audio
+import time
+import threading
+
+sampleDuration = 10
+fadeDuration = 1
+downloadedPath = "../data/downloaded"
+
+included_extenstions = ['mp3']
+downloadedFiles = [fn for fn in os.listdir(downloadedPath) if any([fn.endswith(ext) for ext in included_extenstions])]
+
+def MakeAnnouncement(phrase):
+    audio.PlayTextToSpeech(phrase)
+
+def SpinRecord(file, volume):
+    audio.PlayFile(file, volume)
+
+for f in downloadedFiles:
+    announcementThread = threading.Thread(target=MakeAnnouncement, args=[f])
+    announcementThread.start()
+
+    songThread = threading.Thread(target=SpinRecord, args=[os.path.join(downloadedPath, f), 0.5])
+    songThread.start()
+    time.sleep(sampleDuration - (fadeDuration * 0.5))
