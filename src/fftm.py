@@ -1,8 +1,8 @@
 import musicbrainzngs as mbrainz
 import download7Dpreview
 import py7D
-import json
 import discJockey
+import sys
 
 # Musicbrainzngs app setup
 mbrainz.set_useragent(
@@ -11,12 +11,12 @@ mbrainz.set_useragent(
     "https://github.com/jorgegarcia/mhdlondon2014/",
 )
 
-artistName = "Michael Jackson"
+artistName = ""
 downloadFolder = "../data/downloaded/"
 
 class TrackDataEntry:
 
-    _trackTitle = ''
+    _trackTitle = ""
     _trackReleaseDate = 1900
     _track7DId = 0
 
@@ -30,6 +30,9 @@ def track_previews(artistName):
     for track in tracks:
         trackDataEntry = TrackDataEntry()
         trackDataEntry._trackTitle          = track['track']['title']
+
+        trackDataEntry._trackTitle = trackDataEntry._trackTitle.replace('/', '')
+
         trackDataEntry._trackReleaseDate    = track['track']['release']['releaseDate'][0:4]
         trackDataEntry._track7DId           = track['track']['@id']
 
@@ -73,6 +76,9 @@ def download_tracks(tracksFound):
 
 
 if __name__ == "__main__":
+    inputArgs = sys.argv[1:]
+    artistName = inputArgs[0]
+
     artistData = mbrainz.search_artists(artistName)
     artistLifeSpan = artistData['artist-list'][0]['life-span']
     artistStartYear = "1900"
