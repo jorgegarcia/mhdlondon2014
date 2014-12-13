@@ -1,4 +1,7 @@
 mhdlondon2014
 =============
 
-FFTM
+FFTM (Fast Forward Time Machine)
+
+Aristotel Digenis   @greekgoddj
+Jorge Garcia        @JGarciaMartin
