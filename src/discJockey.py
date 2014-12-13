@@ -4,15 +4,20 @@ import time
 import threading
 import random
 
-sampleDuration = 10
-fadeDuration = 4
+sampleDuration = 15
+fadeDuration = 1
 downloadedPath = "../data/downloaded"
+effectsPath = "../data/effects/"
+effectsFiles = os.listdir(effectsPath)
 
 def MakeAnnouncement(phrase):
     audio.PlayTextToSpeech(str(phrase[1]) + ", " + phrase[0])
 
 def SpinRecord(file, volume, sampleDuration):
     audio.PlayFile(file, volume, sampleDuration)
+
+def PlayRandomFX():
+    audio.PlayFile(effectsPath + effectsFiles[random.randint(0, len(effectsFiles)-1)], 0.5)
 
 def AnnounceSetlist(category, yearStart, yearEnd):
     intro = ("Welcome", "Greetings", "Wazzzzzzz-up")
@@ -35,6 +40,9 @@ def PlaySetlist(downloadedFiles):
         announcementThread = threading.Thread(target=MakeAnnouncement, args=[i])
         announcementThread.start()
 
+        playFXThread = threading.Thread(target=PlayRandomFX)
+        playFXThread.start()
+
         songThread = threading.Thread(target=SpinRecord, args=[os.path.join(downloadedPath, i[0] + ".mp3"), 0.5, sampleDuration])
         songThread.start()
-        time.sleep(sampleDuration - (fadeDuration * 0.5))
+        time.sleep(sampleDuration - (fadeDuration))

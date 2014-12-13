@@ -19,7 +19,10 @@ def AppendToWavFile(fileA, fileB):
     wave.write(fileA, fsA, dataC)
 
 def PlayFile(file, volume=1.0, duration=0.0):
-    subprocess.call(["afplay", "-v", str(volume), "-t", str(duration), file])
+    if(duration > 0.0):
+        subprocess.call(["afplay", "-v", str(volume), "-t", str(duration), file])
+    else:
+        subprocess.call(["afplay", "-v", str(volume), file])
 
 def PlayTextToSpeech(phrase):
     subprocess.call(["say", phrase])
