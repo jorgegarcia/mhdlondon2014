@@ -11,4 +11,4 @@ m.set_useragent(
 print m.search_artists( 'The Gap Band' )
 
 # Testing out downloading from 7D
-download7Dpreview.write7DPreview( "testdownload.mp3", 1234 )
+download7Dpreview.write7DPreview( "../data/downloaded/testdownload.mp3", 1234 )
