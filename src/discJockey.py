@@ -19,17 +19,17 @@ def SpinRecord(file, volume):
 
 def AnnounceSetlist(category, yearStart, yearEnd):
     intro = ("Welcome", "Greetings", "Wazzzzzzz-up")
-    audience = ("party people", "fans")
+    audience = ("party people", "fans", "music lovers")
     body = ("let's listen to some " + category + " tracks between " + str(yearStart) + " and " + str(yearEnd),
-            "here are the " + category + " tunes from " + str(yearStart) + " and the following " + str(yearEnd - yearStart) + " years")
+            "here are the " + category + " tunes from " + str(yearStart) + " and the following " + str(yearEnd - yearStart) + " years",
+            "it is time for some " + category)
 
     finalMessage = intro[random.randint(0, len(intro)-1)]
     finalMessage += " "
     finalMessage += audience[random.randint(0, len(audience)-1)]
-    finalMessage += ","
+    finalMessage += ", "
     finalMessage += body[random.randint(0, len(body)-1)]
     finalMessage += "."
-    print finalMessage
 
     audio.PlayTextToSpeech(finalMessage)
 
@@ -41,5 +41,3 @@ def PlaySetlist():
         songThread = threading.Thread(target=SpinRecord, args=[os.path.join(downloadedPath, f), 0.5])
         songThread.start()
         time.sleep(sampleDuration - (fadeDuration * 0.5))
-
-# PlaySetlist()
