@@ -1,0 +1,11 @@
+import musicbrainzngs as m
+import py7D
+import json
+
+m.set_useragent(
+    "fftm",
+    "0.1",
+    "https://github.com/jorgegarcia/mhdlondon2014/",
+)
+
+print m.search_artists( 'beatles' )
