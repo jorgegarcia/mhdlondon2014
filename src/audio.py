@@ -18,8 +18,8 @@ def AppendToWavFile(fileA, fileB):
     dataC = np.concatenate((dataA, dataB))
     wave.write(fileA, fsA, dataC)
 
-def PlayFile(file, volume=1.0):
-    subprocess.call(["afplay", "-v", str(volume), file,])
+def PlayFile(file, volume=1.0, duration=0.0):
+    subprocess.call(["afplay", "-v", str(volume), "-t", str(duration), file])
 
 def PlayTextToSpeech(phrase):
     subprocess.call(["say", phrase])

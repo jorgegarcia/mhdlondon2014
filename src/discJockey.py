@@ -1,4 +1,4 @@
-import os;
+import os
 import audio
 import time
 import threading
@@ -11,8 +11,8 @@ downloadedPath = "../data/downloaded"
 def MakeAnnouncement(phrase):
     audio.PlayTextToSpeech(str(phrase[1]) + ", " + phrase[0])
 
-def SpinRecord(file, volume):
-    audio.PlayFile(file, volume)
+def SpinRecord(file, volume, sampleDuration):
+    audio.PlayFile(file, volume, sampleDuration)
 
 def AnnounceSetlist(category, yearStart, yearEnd):
     intro = ("Welcome", "Greetings", "Wazzzzzzz-up")
@@ -35,6 +35,6 @@ def PlaySetlist(downloadedFiles):
         announcementThread = threading.Thread(target=MakeAnnouncement, args=[i])
         announcementThread.start()
 
-        songThread = threading.Thread(target=SpinRecord, args=[os.path.join(downloadedPath, i[0] + ".mp3"), 0.5])
+        songThread = threading.Thread(target=SpinRecord, args=[os.path.join(downloadedPath, i[0] + ".mp3"), 0.5, sampleDuration])
         songThread.start()
         time.sleep(sampleDuration - (fadeDuration * 0.5))

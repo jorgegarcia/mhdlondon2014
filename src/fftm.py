@@ -3,6 +3,8 @@ import download7Dpreview
 import py7D
 import discJockey
 import sys
+import audio
+import threading
 
 # Musicbrainzngs app setup
 mbrainz.set_useragent(
@@ -100,5 +102,9 @@ if __name__ == "__main__":
     sortedDownloadedTracksByYear = sorted(downloadedTracks, key=lambda track: track[1])
     print sortedDownloadedTracksByYear
 
-    discJockey.AnnounceSetlist(artistName, int(artistStartYear), int(artistEndYear))
+    announcerThread = threading.Thread(target=discJockey.AnnounceSetlist, args=[artistName, int(artistStartYear), int(artistEndYear)])
+    announcerThread.start()
+
+    audio.PlayFile("../data/backtothefuture.mp3", 0.5, 8.0)
+
     discJockey.PlaySetlist(sortedDownloadedTracksByYear)
