@@ -114,7 +114,6 @@ if __name__ == "__main__":
     downloadedTracks = download_tracks(alltrackPreviewsFound)
 
     sortedDownloadedTracksByYear = sorted(downloadedTracks, key=lambda track: track[1])
-    print sortedDownloadedTracksByYear
 
     announcerThread = threading.Thread(target=discJockey.AnnounceSetlist, args=[artistName, int(artistStartYear), int(artistEndYear)])
     announcerThread.start()
