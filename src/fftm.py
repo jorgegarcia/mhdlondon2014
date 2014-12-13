@@ -40,6 +40,19 @@ def track_previews(artistName):
 
     return trackData
 
+def applyAnnualCap(trackList, cap=999):
+    yearHitTable = {}
+    newTrackList = []
+    for track in trackList:
+        if track._trackReleaseDate not in yearHitTable:
+            yearHitTable[track._trackReleaseDate] = 1
+        else:
+            yearHitTable[track._trackReleaseDate] += 1
+        if yearHitTable[track._trackReleaseDate] <= cap:
+            newTrackList.append(track)
+
+    return newTrackList
+
 def download_tracks(tracksFound):
 
     downloadedTracks = []
@@ -95,6 +108,7 @@ if __name__ == "__main__":
         print artistName + " is still active!"
 
     alltrackPreviewsFound = track_previews(artistName)
+    alltrackPreviewsFound = applyAnnualCap(alltrackPreviewsFound, 3)
     downloadedTracks = download_tracks(alltrackPreviewsFound)
 
     sortedDownloadedTracksByYear = sorted(downloadedTracks, key=lambda track: track[1])
