@@ -77,7 +77,10 @@ def download_tracks(tracksFound):
 
 if __name__ == "__main__":
     inputArgs = sys.argv[1:]
-    artistName = inputArgs[0]
+    if(len(inputArgs) == 0):
+        artistName = "Bob Marley"
+    else:
+        artistName = inputArgs[0]
 
     artistData = mbrainz.search_artists(artistName)
     artistLifeSpan = artistData['artist-list'][0]['life-span']
@@ -98,3 +101,4 @@ if __name__ == "__main__":
     print sortedDownloadedTracksByYear
 
     discJockey.AnnounceSetlist(artistName, int(artistStartYear), int(artistEndYear))
+    discJockey.PlaySetlist(sortedDownloadedTracksByYear)
