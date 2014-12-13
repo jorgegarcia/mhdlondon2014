@@ -1,6 +1,5 @@
 from py7D import api_settings
 import oauth2 as oauth
-import time
 import pycurl
 from io import BytesIO
 

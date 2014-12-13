@@ -4,7 +4,7 @@ import time
 import threading
 import random
 
-sampleDuration = 30
+sampleDuration = 10
 fadeDuration = 4
 downloadedPath = "../data/downloaded"
 
