@@ -4,15 +4,12 @@ import time
 import threading
 import random
 
-sampleDuration = 10
-fadeDuration = 1
+sampleDuration = 30
+fadeDuration = 4
 downloadedPath = "../data/downloaded"
 
-included_extenstions = ['mp3']
-downloadedFiles = [fn for fn in os.listdir(downloadedPath) if any([fn.endswith(ext) for ext in included_extenstions])]
-
 def MakeAnnouncement(phrase):
-    audio.PlayTextToSpeech(phrase)
+    audio.PlayTextToSpeech(str(phrase[1]) + ", " + phrase[0])
 
 def SpinRecord(file, volume):
     audio.PlayFile(file, volume)
@@ -33,11 +30,11 @@ def AnnounceSetlist(category, yearStart, yearEnd):
 
     audio.PlayTextToSpeech(finalMessage)
 
-def PlaySetlist():
-    for f in downloadedFiles:
-        announcementThread = threading.Thread(target=MakeAnnouncement, args=[f])
+def PlaySetlist(downloadedFiles):
+    for i in downloadedFiles:
+        announcementThread = threading.Thread(target=MakeAnnouncement, args=[i])
         announcementThread.start()
 
-        songThread = threading.Thread(target=SpinRecord, args=[os.path.join(downloadedPath, f), 0.5])
+        songThread = threading.Thread(target=SpinRecord, args=[os.path.join(downloadedPath, i[0] + ".mp3"), 0.5])
         songThread.start()
         time.sleep(sampleDuration - (fadeDuration * 0.5))
