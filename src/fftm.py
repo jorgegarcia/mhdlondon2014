@@ -2,6 +2,7 @@ import musicbrainzngs as mbrainz
 import download7Dpreview
 import py7D
 import json
+import discJockey
 
 # Musicbrainzngs app setup
 mbrainz.set_useragent(
@@ -10,24 +11,84 @@ mbrainz.set_useragent(
     "https://github.com/jorgegarcia/mhdlondon2014/",
 )
 
-artistName = "The Gap Band"
+artistName = "Michael Jackson"
+downloadFolder = "../data/downloaded/"
+
+class TrackDataEntry:
+
+    _trackTitle = ''
+    _trackReleaseDate = 1900
+    _track7DId = 0
 
 def track_previews(artistName):
 
-    response = py7D.request('track', 'search', q=artistName, pageSize=3)
+    response = py7D.request('track', 'search', q=artistName, pageSize=100)
     tracks = response['response']['searchResults']['searchResult']
 
+    trackData = []
 
     for track in tracks:
-        print track
-        track['preview'] = py7D.preview_url(track['track']['@id'])
+        trackDataEntry = TrackDataEntry()
+        trackDataEntry._trackTitle          = track['track']['title']
+        trackDataEntry._trackReleaseDate    = track['track']['release']['releaseDate'][0:4]
+        trackDataEntry._track7DId           = track['track']['@id']
 
-    return tracks
+        trackData.append(trackDataEntry)
+
+    return trackData
+
+def download_tracks(tracksFound):
+
+    downloadedTracks = []
+
+    for track in tracksFound:
+        downloadedTrackEntry = []
+
+        file = downloadFolder + str(track._trackTitle) + ".mp3"
+
+        if(len(downloadedTracks) == 0): #initialise
+            downloadedTrackEntry.append(track._trackTitle)
+            downloadedTrackEntry.append(track._trackReleaseDate)
+
+            downloadedTracks.append(downloadedTrackEntry)
+
+            print "Downloading preview to " + file
+            download7Dpreview.write7DPreview(file, track._track7DId)
+        else:
+            wasDownloaded = False
+            for downloadedTrack in downloadedTracks:
+                if(downloadedTrack[0].lower() == track._trackTitle.lower()):
+                    wasDownloaded = True
+
+            if not wasDownloaded:
+                downloadedTrackEntry.append(track._trackTitle)
+                downloadedTrackEntry.append(track._trackReleaseDate)
+
+                downloadedTracks.append(downloadedTrackEntry)
+
+                print "Downloading preview to " + file
+                download7Dpreview.write7DPreview(file, track._track7DId)
+
+    return downloadedTracks
 
 
 if __name__ == "__main__":
-    print mbrainz.search_artists(artistName)
-    print json.dumps(track_previews(artistName), indent=4)
+    artistData = mbrainz.search_artists(artistName)
+    artistLifeSpan = artistData['artist-list'][0]['life-span']
+    artistStartYear = "1900"
+    artistEndYear = "2015"
 
-    # Testing out downloading from 7D
-    download7Dpreview.write7DPreview( "../data/downloaded/testdownload.mp3", 33499156 )
+    if artistLifeSpan['ended'] == 'true':
+        artistStartYear = artistLifeSpan['begin'][0:4]
+        artistEndYear = artistLifeSpan['end'][0:4]
+        print artistName + " " + "from " + artistStartYear + " to " + artistEndYear
+    else:
+        print artistName + " is still active!"
+
+    alltrackPreviewsFound = track_previews(artistName)
+    downloadedTracks = download_tracks(alltrackPreviewsFound)
+
+    sortedDownloadedTracksByYear = sorted(downloadedTracks, key=lambda track: track[1])
+    print sortedDownloadedTracksByYear
+
+    discJockey.AnnounceSetlist(artistName, int(artistStartYear), int(artistEndYear))

@@ -42,6 +42,4 @@ def PlaySetlist():
         songThread.start()
         time.sleep(sampleDuration - (fadeDuration * 0.5))
 
-
-AnnounceSetlist("Motown", 1981, 2014)
-PlaySetlist()
+# PlaySetlist()
