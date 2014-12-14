@@ -24,7 +24,7 @@ python fftm.py "Bob Marley"
 We use MusicBrainz API to access data from the artist (like the years being active), and the 7Digital API to download the preview
 tracks that you hear in your journey, also matching each the years passed.
 
-Speak OSX API is also used in the text to speech generation for the DJ.
+Say OSX API is also used in the text to speech generation for the DJ.
 
 Some sounds from Freesound are also used to smooth out the leaps in time.
 
