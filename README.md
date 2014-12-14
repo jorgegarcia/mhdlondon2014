@@ -15,6 +15,10 @@ Travel in time! A python command line application that allows time travel with y
  
 A DJ narration also supports your journey introducing each of the songs you hear in your trip.
 
+### Usage:
+
+python fftm.py "Bob Marley"
+
 ## What APIs are used?
 
 We use MusicBrainz API to access data from the artist (like the years being active), and the 7Digital API to download the preview
