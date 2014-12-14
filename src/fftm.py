@@ -121,3 +121,5 @@ if __name__ == "__main__":
     audio.PlayFile("../data/backtothefuture.mp3", 0.5, 8.0)
 
     discJockey.PlaySetlist(sortedDownloadedTracksByYear)
+
+    audio.PlayFile("../data/backtothefuture.mp3", 0.5, 8.0)
