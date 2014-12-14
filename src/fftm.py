@@ -100,6 +100,11 @@ if __name__ == "__main__":
         artistName = inputArgs[0]
 
     artistData = mbrainz.search_artists(artistName)
+
+    if(len(artistData['artist-list']) == 0):
+        print "This artist doesn't have any tracks (or maybe has, but we haven't found anything). See you, bye!"
+        quit()
+
     artistLifeSpan = artistData['artist-list'][0]['life-span']
     artistStartYear = "1900"
     artistEndYear = "2015"
