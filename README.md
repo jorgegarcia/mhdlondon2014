@@ -14,8 +14,14 @@ Music Hack Day London 2014
 ## What is this?
 
 Travel in time! A python command line application that allows time travel with your favourite artist.
- 
-A DJ narration also supports your journey introducing each of the songs you hear in your trip.
+
+- Firstly, we query the MusicBrainz database for the artist.
+- Then we check for available MP3 previews of songs in 7Digital.
+- After that we cap the number of tracks per year to N number of tracks.
+- The previews are downloaded.
+- The text to speech DJ starts to introduce the artist playlist with a variety of phrases that are randomly generated.
+- Each of the previews are played one after the other with supporting transition effects.
+- For each song the DJ mentions the Year of the release and the name of the song.
 
 ### Usage:
 
