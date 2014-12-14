@@ -7,9 +7,9 @@ Music Hack Day London 2014
 
 ## Who made this?
 
-Aristotel Digenis   @greekgoddj
+[Aristotel Digenis @greekgoddj](http://www.twitter.com/greekgoddj)
 
-Jorge Garcia        @JGarciaMartin
+[Jorge Garcia @JGarciaMartin](http://www.twitter.com/JGarciaMartin)
 
 ## What is this?
 
