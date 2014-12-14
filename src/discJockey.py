@@ -17,7 +17,7 @@ def SpinRecord(file, volume, sampleDuration):
     audio.PlayFile(file, volume, sampleDuration)
 
 def PlayRandomFX():
-    audio.PlayFile(effectsPath + effectsFiles[random.randint(0, len(effectsFiles)-1)], 0.5)
+    audio.PlayFile(effectsPath + effectsFiles[random.randint(0, len(effectsFiles)-1)], 0.25)
 
 def AnnounceSetlist(category, yearStart, yearEnd):
     intro = ("Welcome", "Greetings", "Wazzzzzzz-up")
