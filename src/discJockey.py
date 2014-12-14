@@ -11,6 +11,7 @@ effectsPath = "../data/effects/"
 effectsFiles = os.listdir(effectsPath)
 
 def MakeAnnouncement(phrase):
+    print str(phrase[1]) + ", " + phrase[0]
     audio.PlayTextToSpeech(str(phrase[1]) + ", " + phrase[0])
 
 def SpinRecord(file, volume, sampleDuration):
@@ -32,6 +33,7 @@ def AnnounceSetlist(category, yearStart, yearEnd):
     finalMessage += ", "
     finalMessage += body[random.randint(0, len(body)-1)]
     finalMessage += "."
+    print finalMessage
 
     audio.PlayTextToSpeech(finalMessage)
 
