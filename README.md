@@ -19,7 +19,7 @@ A DJ narration also supports your journey introducing each of the songs you hear
 
 python fftm.py "Bob Marley"
 
-## What APIs are used?
+## What APIs were used?
 
 We use MusicBrainz API to access data from the artist (like the years being active), and the 7Digital API to download the preview
 tracks that you hear in your journey, also matching each the years passed.
@@ -31,3 +31,7 @@ Some sounds from Freesound are also used to smooth out the leaps in time.
 [We also added the Back to the Future soundtrack, because... you know... it's still quite cool!](https://www.youtube.com/watch?v=e8TZbze72Bc)
 
 ![Screenshot](FFTM_API_Slides.jpeg)
+
+## What tools were used?
+
+We love Python and PyCharm... so, that was it. 
