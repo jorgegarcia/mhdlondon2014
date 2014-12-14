@@ -22,7 +22,7 @@ class TrackDataEntry:
     _trackReleaseDate = 1900
     _track7DId = 0
 
-def track_previews(artistName):
+def TrackPreviews(artistName):
 
     response = py7D.request('track', 'search', q=artistName, pageSize=100)
     tracks = response['response']['searchResults']['searchResult']
@@ -42,7 +42,7 @@ def track_previews(artistName):
 
     return trackData
 
-def applyAnnualCap(trackList, cap=999):
+def ApplyAnnualCap(trackList, cap=999):
     yearHitTable = {}
     newTrackList = []
     for track in trackList:
@@ -55,7 +55,7 @@ def applyAnnualCap(trackList, cap=999):
 
     return newTrackList
 
-def download_tracks(tracksFound):
+def DownloadTracks(tracksFound):
 
     downloadedTracks = []
 
@@ -109,9 +109,9 @@ if __name__ == "__main__":
     else:
         print artistName + " is still active!"
 
-    alltrackPreviewsFound = track_previews(artistName)
-    alltrackPreviewsFound = applyAnnualCap(alltrackPreviewsFound, 3)
-    downloadedTracks = download_tracks(alltrackPreviewsFound)
+    alltrackPreviewsFound = TrackPreviews(artistName)
+    alltrackPreviewsFound = ApplyAnnualCap(alltrackPreviewsFound, 3)
+    downloadedTracks = DownloadTracks(alltrackPreviewsFound)
 
     sortedDownloadedTracksByYear = sorted(downloadedTracks, key=lambda track: track[1])
 
