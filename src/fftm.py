@@ -5,6 +5,7 @@ import discJockey
 import sys
 import audio
 import threading
+import string
 
 # Musicbrainzngs app setup
 mbrainz.set_useragent(
@@ -34,6 +35,7 @@ def TrackPreviews(artistName):
         trackDataEntry._trackTitle          = track['track']['title']
 
         trackDataEntry._trackTitle = trackDataEntry._trackTitle.replace('/', '')
+        trackDataEntry._trackTitle = filter(lambda x: x in string.printable, trackDataEntry._trackTitle)
 
         trackDataEntry._trackReleaseDate    = track['track']['release']['releaseDate'][0:4]
         trackDataEntry._track7DId           = track['track']['@id']
