@@ -24,6 +24,7 @@ class TrackDataEntry:
     _track7DId = 0
 
 def TrackPreviews(artistName):
+    print "Finding available song previews..."
 
     response = py7D.request('track', 'search', q=artistName, pageSize=100)
     tracks = response['response']['searchResults']['searchResult']
@@ -45,6 +46,8 @@ def TrackPreviews(artistName):
     return trackData
 
 def ApplyAnnualCap(trackList, cap=999):
+    print "Avoiding excessive hits from a single year..."
+
     yearHitTable = {}
     newTrackList = []
     for track in trackList:
@@ -58,6 +61,7 @@ def ApplyAnnualCap(trackList, cap=999):
     return newTrackList
 
 def DownloadTracks(tracksFound):
+    print "Kicking off downloads of song previews..."
 
     downloadedTracks = []
 
@@ -99,6 +103,8 @@ if __name__ == "__main__":
     else:
         artistName = inputArgs[0]
 
+    print "Retrieving information about artist..."
+
     artistData = mbrainz.search_artists(artistName)
 
     if(len(artistData['artist-list']) == 0):
@@ -120,6 +126,7 @@ if __name__ == "__main__":
     alltrackPreviewsFound = ApplyAnnualCap(alltrackPreviewsFound, 3)
     downloadedTracks = DownloadTracks(alltrackPreviewsFound)
 
+    print "Sorting song previews according to release date..."
     sortedDownloadedTracksByYear = sorted(downloadedTracks, key=lambda track: track[1])
 
     announcerThread = threading.Thread(target=discJockey.AnnounceSetlist, args=[artistName, int(artistStartYear), int(artistEndYear)])
